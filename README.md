@@ -38,4 +38,4 @@ Contributions to this project are welcome! Feel free to enhance existing feature
 
 **License:**
 
-This project is open-source and available under the [MIT License](https://github.com/anuragshuklajec/course-selling-website/blob/main/LICENSE).
+This project is open-source and available under the MIT LICENSE.
