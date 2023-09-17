@@ -1,12 +1,11 @@
-import { useState } from 'react'
-import './App.css'
-import Signup from './Signup'
-import NavBar from './NavBar'
+import '../src/styles/App.css'
+import Signup from '../src/components/auth/Signup'
+import NavBar from '../src/components/navbar/NavBar'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-import Signin from './Signin'
-import AddCourse from './AddCourse'
-import Courses from './Courses'
-import Course from './Course'
+import Signin from '../src/components/auth/Signin'
+import AddCourse from '../src/components/adminCourse/AddCourse'
+import Courses from '../src/components/adminCourse/Courses'
+import Course from '../src/components/adminCourse/Course'
  
 function App() {
   return (
