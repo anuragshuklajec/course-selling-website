@@ -1,21 +1,18 @@
 import { useEffect, useState } from "react";
 import { Card, Typography } from "@mui/material";
+import axios from "axios"
 
 
 function Courses() {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/admin/courses", {
-      method: "GET",
+    axios.get("http://localhost:3000/admin/courses/", {
       headers: {
-        "Content-type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem("token")
-      }
-    }).then(response => {
-      response.json().then((data) => {
-        setCourses(data.courses);
-      });
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    }).then((response)=>{
+      setCourses(response.data.courses)
     });
   }, []);
 
@@ -34,7 +31,7 @@ function Courses() {
 function CourseCard(props) {
 
   return (
-    <div>
+    <div style={{margin : 0}}>
       <Card variant="outlined" sx={{ width: 300, height: 250, margin: "8px" }}>
         <Typography variant="h5" color="initial" align="center">{props.course.title}</Typography>
         <Typography variant="subtitle1" color="initial" align="center">{props.course.description}</Typography>

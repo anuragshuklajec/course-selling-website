@@ -3,10 +3,13 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import { Card } from '@mui/material';
 import { useState } from 'react';
+import axios from "axios" ;
+import { useNavigate } from 'react-router-dom';
 function Signup() {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const navigate = useNavigate()
   return (
     <div>
     <div style={{
@@ -52,23 +55,14 @@ function Signup() {
        }}
 
       /> <br/><br/>
-      <Button variant="contained" color="primary" size='small' onClick={()=>{
-        fetch("http://localhost:3000/admin/signup",{
-          method : "POST",
-          body : JSON.stringify(
-            {
-              username : email,
-              password : password
-            }),
-          headers : {
-              "Content-type" : "application/json"
-            }
-        }).then((response)=>{
-          response.json().then((data)=>{
-            localStorage.setItem("token", data.token)
-            console.log(data.token);
-          })
+      <Button variant="contained" color="primary" size='small' onClick={async()=>{
+        const res = await axios.post("http://localhost:3000/admin/signup",{
+          username : email,
+          password : password
         })
+        const data = res.data
+        localStorage.setItem("token",data.token)
+        navigate('/addcourse')
       }}>
         Signup
       </Button>
@@ -82,3 +76,20 @@ function Signup() {
 }
 
 export default Signup;
+
+        // fetch("http://localhost:3000/admin/signup",{
+        //   method : "POST",
+        //   body : JSON.stringify(
+        //     {
+        //       username : email,
+        //       password : password
+        //     }),
+        //   headers : {
+        //       "Content-type" : "application/json"
+        //     }
+        // }).then((response)=>{
+        //   response.json().then((data)=>{
+        //     localStorage.setItem("token", data.token)
+        //     console.log(data.token);
+        //   })
+        // })
