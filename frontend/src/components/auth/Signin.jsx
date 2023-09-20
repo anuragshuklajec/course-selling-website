@@ -71,7 +71,7 @@ function Signin() {
               const data = res.data;
 
               localStorage.setItem("token", data.token);
-              navigate("/courses");
+              window.location = "/courses"
             }}
           >
             Signin

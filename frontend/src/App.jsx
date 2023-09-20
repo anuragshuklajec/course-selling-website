@@ -10,7 +10,7 @@ import Course from '../src/components/adminCourse/Course'
 function App() {
   return (
 
-      <div style={{width: "100vw", height : "100vh"}}>
+      <div style={{width: "100%", minHeight : "100vh"}}>
     <Router>
     <NavBar/>
       <Routes>
