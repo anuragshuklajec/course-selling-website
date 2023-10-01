@@ -43,6 +43,13 @@ router.get('/me',authenticateJwt,(req,res)=>{
     await course.save()
     res.json({message : "Course created succesfully", CourseId : course.id})
   });
+
+  router.get('/course/:courseId', authenticateJwt, async (req, res) => {
+    // logic to create a course
+    const course = await Course.findById
+    await course.save()
+    res.json({message : "Course created succesfully", CourseId : course.id})
+  });
   
   router.put('/courses/:courseId', authenticateJwt , async (req, res) => {
     // logic to edit a course
