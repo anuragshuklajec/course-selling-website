@@ -45,10 +45,10 @@ router.get('/me',authenticateJwt,(req,res)=>{
   });
 
   router.get('/course/:courseId', authenticateJwt, async (req, res) => {
-    // logic to create a course
-    const course = await Course.findById
-    await course.save()
-    res.json({message : "Course created succesfully", CourseId : course.id})
+    // logic to get a specific course
+    const courseId = req.params.courseId ; 
+    const course = await Course.findById(courseId)
+    res.json({course})
   });
   
   router.put('/courses/:courseId', authenticateJwt , async (req, res) => {
