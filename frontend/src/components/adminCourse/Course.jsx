@@ -5,24 +5,20 @@ import axios from "axios";
 /*eslint-disable*/
 function Course() {
   let { courseId } = useParams();
-  const [courses, setCourses] = useState([]);
+  const [course, setCourse] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/admin/courses/", {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    }).then((response)=>{
-      console.log(response);
-      setCourses(response.data.courses)
-    });
+    axios
+      .get(`http://localhost:3000/admin/course/${courseId}`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setCourse(response.data.course);
+      });
   }, []);
-
-  let course = null;
-  course = courses.find((course) => {
-    return course._id == courseId;
-  });
-
   if (course) {
     return (
       <div
@@ -33,11 +29,7 @@ function Course() {
         }}
       >
         <CourseComponent course={course} />
-        <UpdateComponent
-          course={course}
-          courses={courses}
-          setCourses={setCourses}
-        />
+        <UpdateComponent course={course} setCourse={setCourse} />
       </div>
     );
   } else {
@@ -71,6 +63,11 @@ function UpdateComponent(props) {
   const [title, setTitle] = useState(course.title);
   const [description, setDescription] = useState(course.description);
 
+  useEffect(() => {
+    setTitle(course.title);
+    setDescription(course.description);
+  }, [course]);
+
   return (
     <div>
       <Card
@@ -85,7 +82,7 @@ function UpdateComponent(props) {
         <Typography color={"black"}>Update this course</Typography>
         <br />
         <TextField
-        value = {title}
+          value={title}
           fullWidth={true}
           size="small"
           variant="outlined"
@@ -97,7 +94,7 @@ function UpdateComponent(props) {
         <br />
         <br />
         <TextField
-        value={description}
+          value={description}
           fullWidth={true}
           size="small"
           variant="outlined"
@@ -111,37 +108,25 @@ function UpdateComponent(props) {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => {
-            fetch(`http://localhost:3000/admin/courses/${course._id}`, {
-              method: "PUT",
-              body: JSON.stringify({
-                title,
-                description,
-                imageLink: "",
-                published: true,
-              }),
-              headers: {
-                "Content-type": "application/json",
-                Authorization: "Bearer " + localStorage.getItem("token"),
-              },
-            }).then((response) => {
-              response.json().then((data) => {
-                let updatedCourses = props.courses.map((currentCourse) => {
-                  if (currentCourse._id == course._id) {
-                    return {
-                      ...currentCourse,
+          onClick={async () => {
+            const res = await axios.put(
+              `http://localhost:3000/admin/courses/${course._id}`,{
+              title,
+              description,
+              imageLink: "",
+              published: true,},
+              {
+                headers: { Authorization: "Bearer " + localStorage.getItem("token"), },
+              }
+            );
+            const data = res.data ;
+            let updatedCourse = {
+                      ...course,
                       title,
-                      description,
-                    };
-                  } else {
-                    return currentCourse;
-                  }
-                });
-                props.setCourses(updatedCourses);
-              });
-            });
-          }}
-        >
+                      description
+                    }
+            props.setCourse(updatedCourse);
+                  }}>
           Update course
         </Button>
       </Card>

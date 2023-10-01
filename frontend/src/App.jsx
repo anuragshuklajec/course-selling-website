@@ -6,6 +6,7 @@ import Signin from '../src/components/auth/Signin'
 import AddCourse from '../src/components/adminCourse/AddCourse'
 import Courses from '../src/components/adminCourse/Courses'
 import Course from '../src/components/adminCourse/Course'
+import AdminLanding from './components/Landing/AdminLanding'
  
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
     <Router>
     <NavBar/>
       <Routes>
+
+        <Route path="/" element={<AdminLanding/>}></Route>
         <Route path="/course/:courseId" element={<Course/>}></Route>
         <Route path="/addcourse" element = {<AddCourse/>}></Route>
         <Route path="/signin" element={<Signin/>}/>

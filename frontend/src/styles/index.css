@@ -2,3 +2,16 @@ body{
   background-color: #f1fdff;
   margin: 0px
 }
+
+/* *{
+  border:  1px solid red;
+}  */
+
+
+/* CSS in a separate file or inline styles */
+
+@media (max-width: 700px) {
+  .illustration {
+    display: none;
+  }
+}

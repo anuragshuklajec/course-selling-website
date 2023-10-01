@@ -5,17 +5,29 @@ import { Card } from '@mui/material';
 import { useState } from 'react';
 import axios from "axios" ;
 import { useNavigate } from 'react-router-dom';
+import { Illustration } from './Signin';
 function Signup() {
 
+
+  return (
+    <div style={{display: "flex", justifyContent: "space-evenly", marginTop: "150px",alignItems: "center"}}>
+    <SignUpComponent/>
+    <Illustration/>
+    </div>
+
+
+    
+  );
+}
+
+function SignUpComponent(){
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
-  return (
-    <div>
+  return <div>
     <div style={{
         display: "flex",
         justifyContent : "center",
-        marginTop: "150px",
 
       }}>
         <Typography variant="h6" color="initial">Welcome to Coursera, Signup below</Typography>
@@ -68,28 +80,7 @@ function Signup() {
       </Button>
     </Card>
     </div>
-    </div>
-
-
-    
-  );
+  </div>
 }
 
 export default Signup;
-
-        // fetch("http://localhost:3000/admin/signup",{
-        //   method : "POST",
-        //   body : JSON.stringify(
-        //     {
-        //       username : email,
-        //       password : password
-        //     }),
-        //   headers : {
-        //       "Content-type" : "application/json"
-        //     }
-        // }).then((response)=>{
-        //   response.json().then((data)=>{
-        //     localStorage.setItem("token", data.token)
-        //     console.log(data.token);
-        //   })
-        // })

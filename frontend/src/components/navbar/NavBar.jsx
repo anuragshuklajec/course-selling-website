@@ -5,6 +5,7 @@ import { useState,useEffect } from "react";
 import axios from "axios"
 
 
+
 function NavBar() {
   const navigate = useNavigate()
   const [username,setUsername] = useState("")
@@ -23,36 +24,25 @@ function NavBar() {
         console.log(username);
       }
     })
-    
-    // fetch("http://localhost:3000/admin/me",{
-    //         method : "GET",
-    //         headers : {
-    //             "Content-type" : "application/json",
-    //             "Authorization" : "Bearer " + localStorage.getItem("token")
-    //           }
-    //       }).then(response =>{
-    //         response.json().then((data)=>{
-    //           if(response.ok){
-    //             console.log(data.username);
-    //             setUsername(data.username)
-    //           }
-    //         })
-    //       })
 
   }, []);
   if(username){
     return (
 
-      <div style={{display: "flex", justifyContent: "space-between", padding : 4}}>
+      <div style={{display: "flex", justifyContent: "space-between", padding : "4px", marginTop : "4px"}}>
         <div>
-          <Typography>Coursera</Typography>
+        <Button sx={{
+           textTransform: "none",
+        }} onClick={()=>{
+            navigate("/")
+          }}><Typography variant="h5" color="initial">Coursera</Typography></Button>
         </div>
         <div>
           <Typography variant="h7" color="initial">{username}</Typography>
-          <Button variant="contained" sx = {{marginLeft : 2}} onClick={()=>{
+          <Button variant="contained" sx = {{marginLeft : "10px"}} onClick={()=>{
             setUsername("")
             localStorage.setItem('token', null)
-            navigate('/signin')
+            navigate('/')
           }}>Sign out</Button>
         </div>
       </div>
@@ -61,11 +51,23 @@ function NavBar() {
   }
   return (
 
-    <div style={{display: "flex", justifyContent: "space-between", padding : 4}}>
+    <div style={{display: "flex", justifyContent: "space-between", padding : "4px",marginTop : "10px"}}>
       <div>
-        <Typography>Coursera</Typography>
+        <Button sx={{
+           textTransform: "none",
+        }} onClick={()=>{
+            navigate("/")
+          }}><Typography variant="h5" color="initial">Coursera</Typography></Button>
       </div>
-      <div>
+      <AuthButtons/>
+    </div>
+  );
+}
+
+export const AuthButtons = () =>{
+  const navigate = useNavigate()
+  return (
+    <div>
         <Button variant="contained" sx={{marginRight : "10px"}} onClick={()=>{
           navigate('/signup')
         }}>Sign up</Button>
@@ -73,8 +75,7 @@ function NavBar() {
           navigate('/signin')
         }}>Sign in</Button>
       </div>
-    </div>
-  );
+  )
 }
 
 export default NavBar;
